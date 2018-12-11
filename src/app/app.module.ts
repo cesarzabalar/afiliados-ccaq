@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { QRScanner } from '@ionic-native/qr-scanner/ngx';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, QrpageComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

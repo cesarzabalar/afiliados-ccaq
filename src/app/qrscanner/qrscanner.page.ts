@@ -1,27 +1,25 @@
-import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController, Platform } from '@ionic/angular';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
-import { QrpageComponent } from '../qrpage/qrpage.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-qrscanner',
+  templateUrl: './qrscanner.page.html',
+  styleUrls: ['./qrscanner.page.scss'],
 })
-export class HomePage {
+export class QrscannerPage implements OnInit {
 
   constructor(public navCtrl: NavController,
-              private qrScanner: QRScanner) {
+              public platform: Platform,
+              public qrScanner: QRScanner) { }
 
+  ngOnInit() {
+    this.platform.ready().then(() => {
+      this.qrscanner();
+    });
   }
 
-  push() {
-    // this.navCtrl.push(QrpageComponent);
-    this.navCtrl.navigateForward('/qrscanner');
-  }
-
-  scan() {
-
+  qrscanner() {
     // Optionally request the permission early
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
@@ -43,7 +41,6 @@ export class HomePage {
           // show camera preview
           this.qrScanner.show()
           .then((data: QRScannerStatus) => {
-            alert('aqui');
             alert(data.showing);
           }, err => {
             alert(err);
